@@ -12,7 +12,7 @@ import operator
 # ============================
 HOST = "0.0.0.0"
 PORT = 8000
-OLLAMA_MODEL = "llama3.1:8b"
+OLLAMA_MODEL =  "llama3.2:1b" #"llama3.1:8b"
 
 app = Flask(__name__)
 
@@ -116,8 +116,10 @@ def local_answer(text: str):
         return datetime.now().strftime("Today is %A.")
         
     # ---- Custom Greeting ----
-    if re.search(r"\bhello aria\b", t):
-        return "Hello! I am Aarya. How can I help you today?"
+    # ---- Hello Arya (specific) ----
+    if re.search(r"\bhello\s+(aarya|arya|aria)\b", t):
+    	return "Hello! I am Aarya. How can I help you today?"
+
 
 
     # ---- Identity ----
@@ -127,10 +129,17 @@ def local_answer(text: str):
         return "My name is Aarya."
 
     # ---- Company ----
+    # ---- Company ----
     if re.search(r"\b(ecruxbot|your company|about your company|tell me about your company)\b", t):
-        return "Ecruxbot is an Indian company creating robots and AI solutions."
+    	return "Ecruxbot is an Indian company creating robots and AI solutions for everyone"
+
+	# ---- Team ----
+    if re.search(r"\b(your team|tell me about your team|who is in your team)\b", t):
+        return "Our team consists of Hitendra Valhe, Virendra Valhe, and Bhagyesh Tajne."
+
     if re.search(r"\bwebsite\b", t):
         return "You can visit our website at ecruxbot.in."
+        
     if re.search(r"\blocation|address\b", t):
         return "Our office is at 2nd Floor, Near M. J. College, Jalgaon, Maharashtra, India."
 
